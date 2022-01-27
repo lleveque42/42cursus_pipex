@@ -6,11 +6,11 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:09:46 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/26 17:36:54 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:28:57 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../../pipex.h"
 
 int	ft_strlen(char *s)
 {
@@ -22,12 +22,12 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-static size_t	malloc_size(char const *s, unsigned int start, size_t len)
+static size_t	malloc_size(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 
 	i = 0;
-	if (start > ft_strlen(s))
+	if (start > (unsigned int)ft_strlen(s))
 		return (i);
 	while (s[start] && i < len)
 	{
@@ -37,7 +37,7 @@ static size_t	malloc_size(char const *s, unsigned int start, size_t len)
 	return (i);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	size;
@@ -50,7 +50,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!dest)
 		return (NULL);
 	i = 0;
-	if (!(start > ft_strlen(s)))
+	if (!(start > (unsigned int)ft_strlen(s)))
 	{
 		while (s[start] && i < size)
 		{
@@ -73,4 +73,31 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (s1[i] && s2[i] && s1[i] == s2[i] && i < (n - 1))
 		i++;
 	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	*dest;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!dest)
+		return (NULL);
+	while (s1 && s1[i])
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	while (s2 && s2[j])
+	{
+		dest[j + i] = s2[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }

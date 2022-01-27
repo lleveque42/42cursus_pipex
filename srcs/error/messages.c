@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 16:56:56 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/27 15:24:13 by lleveque         ###   ########.fr       */
+/*   Created: 2022/01/27 15:10:40 by lleveque          #+#    #+#             */
+/*   Updated: 2022/01/27 16:17:54 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../../pipex.h"
 
-
-int	main(int ac, char **av, char **envp)
+int	no_env(void)
 {
-	t_path	data;
+	ft_putstr_fd("Can't find env.\n", 2);
+	return (0);
+}
 
-	if (envp[0] == NULL)
-		return (no_env());
-	if (ac != 5)
-		return (wrong_input());
-	check_args(av);
-	get_path(envp, &data);
-	get_cmd(&data, av[2], av[3]);
+int	wrong_input(void)
+{
+	ft_putstr_fd("Input must looks like this : ./pipex infile ''ls -l'' ''wc -l'' outfile\n", 2);
+	return (0);
 }

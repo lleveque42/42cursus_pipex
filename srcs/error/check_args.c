@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 16:56:56 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/27 15:24:13 by lleveque         ###   ########.fr       */
+/*   Created: 2022/01/27 14:32:57 by lleveque          #+#    #+#             */
+/*   Updated: 2022/01/27 16:21:10 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../../pipex.h"
 
-
-int	main(int ac, char **av, char **envp)
+int	check_args(char **av)
 {
-	t_path	data;
+	int	i;
 
-	if (envp[0] == NULL)
-		return (no_env());
-	if (ac != 5)
-		return (wrong_input());
-	check_args(av);
-	get_path(envp, &data);
-	get_cmd(&data, av[2], av[3]);
+	i = 0;
+	if (av[1] == NULL || av[2] == NULL || av[3] == NULL|| av[4] == NULL)
+		return (1);
+	// while (av[2][i] && av[2][i] == ' ')
+	// 	i++;
+	// if (av[2][i] == '\0')
+	// 	return ();
+	return (0);
 }
