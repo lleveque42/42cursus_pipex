@@ -6,7 +6,7 @@
 #    By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 09:52:26 by lleveque          #+#    #+#              #
-#    Updated: 2022/01/27 16:28:44 by lleveque         ###   ########.fr        #
+#    Updated: 2022/01/27 22:29:07 by lleveque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRCS = ${SRCS_MAIN} ${SRCS_PARSING} ${SRCS_UTILS} ${SRCS_ERROR}
 
 SRCS_MAIN = $(addprefix srcs/, pipex.c)
 
-SRCS_PARSING = $(addprefix srcs/parsing/, parse_path.c)
+SRCS_PARSING = $(addprefix srcs/parsing/, parse_path.c parse_cmd.c parse_utils.c)
 
 SRCS_UTILS = $(addprefix srcs/utils/,  pipex_utils.c pipex_split.c)
 
@@ -32,21 +32,30 @@ CFLAGS = -Wall -Wextra -Werror
 
 all:	${NAME}
 
+BRED="\033[1;31m"
+RED='\033[0;31m'
+BGREEN='\033[1;32m'
+BYELLOW='\033[1;33m'
+YELLOW='\033[0;33m'
+BLUE='\033[1;36m'
+BROSE='\033[1;35m'
+ROSE='\033[0;35m'
+
 ${NAME}:	${OBJS}
-			@echo "making ${NAME}..."
+			@echo ${BYELLOW}"making" ${YELLOW}"${NAME}..."
 			@${CC} ${OBJS} ${CFLAG} -o ${NAME} ${LIBFT}
-			@echo "${NAME} is ready !"
+			@echo ${BGREEN}"${NAME} is ready !"${NONE}
 
 .c.o:
-	@echo "compiling ${<:.c=.c}..."
+	@echo ${BROSE}"compiling" ${BLUE}"[${CFLAGS}]"${ROSE}" ${<:.c=.c}..."
 	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 clean:
-		@echo "removing files..."
+		@echo ${BRED}"removing" ${RED}"files..."
 		@${RM} ${OBJS}
 
 fclean:		clean
-			@echo "removing executable..."
+			@echo ${BRED}"removing" ${RED}"executable..."
 			@${RM} ${NAME}
 
 re: fclean all

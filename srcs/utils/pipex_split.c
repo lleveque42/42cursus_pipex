@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:26:59 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/27 13:59:26 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/27 20:54:49 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ char	**ft_split(char *s, char c)
 		i = ft_strcpy_split(s, tab[j], i, c);
 		j++;
 	}
-	tab[j] = 0;
+	tab[j] = NULL;
 	return (tab);
 }

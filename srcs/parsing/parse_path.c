@@ -6,29 +6,13 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 13:44:39 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/27 14:53:44 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/27 22:28:04 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
 
-void	get_cmd(t_path *data, char *cmd1, char *cmd2)
-{
-	int	i;
-
-	i = 0;
-	while (data->path1[i] && data->path2[i])
-	{
-		data->path1[i] = ft_strjoin(data->path1[i], "/");
-		data->path1[i] = ft_strjoin(data->path1[i], cmd1);
-		data->path2[i] = ft_strjoin(data->path2[i], "/");
-		data->path2[i] = ft_strjoin(data->path2[i], cmd2);
-		i++;
-	}
-	return ;
-}
-
-void	get_path(char **envp, t_path *data)
+void	get_data(char **envp, t_data *data)
 {
 	int		i;
 	char	*str_path;
@@ -47,9 +31,6 @@ void	get_path(char **envp, t_path *data)
 		i++;
 	}
 	if (str_path)
-	{
-		data->path1 = ft_split(str_path, ':');
-		data->path2 = ft_split(str_path, ':');
-	}
+		data->path = ft_split(str_path, ':');
 	return ;
 }
