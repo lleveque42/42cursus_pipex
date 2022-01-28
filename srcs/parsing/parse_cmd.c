@@ -6,57 +6,69 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 20:50:48 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/27 22:28:00 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:11:18 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
 
-int		check_cmd(t_data *data, char *cmd)
+char	*get_path(char *path, char *cmd)
+{
+	char	*cmd_path;
+
+	cmd_path = ft_strjoin(path, "/");
+	if (!cmd_path)
+		return (NULL);
+	cmd_path = ft_strjoin(cmd_path, cmd);
+	if (!cmd_path)
+		return (NULL);
+	return (cmd_path);
+}
+
+int	check_cmd(t_data *data, char *cmd, int cmd_i)
 {
 	int		i;
+	char	*path;
 	char	*cmd_path;
 
 	i = 0;
 	while (data->path[i])
 	{
-		cmd = ft_strjoin(data->path[i], "/");
-		cmd = ft_strjoin(cmd, cmd);
-		if (!access(cmd, F_OK))
-
-			check = 1;
+		path = ft_strdup(data->path[i]);
+		if (!path)
+			return (cant_init_data());
+		cmd_path = get_path(path, cmd);
+		if (!cmd_path)
+			return (cant_init_data());
+		if (!access(cmd_path, F_OK))
+		{
+			if (cmd_i == 1)
+				data->path_cmd1 = cmd_path;
+			else
+				data->path_cmd2 = cmd_path;
+			return (0);
+		}
+		free(cmd_path);
 		i++;
 	}
-	if (!check)
-		return (cmd_not_found(data->cmd1[0]));
+	return (cmd_not_found(cmd));
 }
 
-void	get_cmd(t_data *data, char *cmd1, char *cmd2)
+int	parse_cmd(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (data->path[i])
+	if (!access(data->cmd1[0], F_OK))
+		data->path_cmd1 = ft_strdup(data->cmd1[0]);
+	else
 	{
-		data->path[i] = ft_strjoin(data->path[i], "/");
-		data->path[i] = ft_strjoin(data->path[i], cmd1);
-		data->path[i] = ft_strjoin(data->path[i], "/");
-		data->path[i] = ft_strjoin(data->path[i], cmd2);
-		i++;
+		if (check_cmd(data, data->cmd1[0], 1))
+			return (1);
 	}
-	return ;
-}
-
-int	parse_cmd(t_data *data, char *cmd1, char *cmd2)
-{
-	data->cmd1 = ft_split(cmd1, ' ');
-	data->cmd2 = ft_split(cmd2, ' ');
-	if (check_cmd(data))
-		return (1);
-	// while (data->cmd1[i][0])
-	for (int i = 0; data->cmd1[i]; i++)
-		printf("%s\n", data->cmd1[i]);
-	for (int i = 0; data->cmd2[i]; i++)
-		printf("%s\n", data->cmd2[i]);
+	if (!access(data->cmd2[0], F_OK))
+		data->path_cmd2 = ft_strdup(data->cmd2[0]);
+	else
+	{
+		if (check_cmd(data, data->cmd2[0], 2))
+			return (1);
+	}
 	return (0);
 }

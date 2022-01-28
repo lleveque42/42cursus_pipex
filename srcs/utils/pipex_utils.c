@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:09:46 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/27 14:28:57 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:38:26 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!dest)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1 && s1[i])
 	{
 		dest[i] = s1[i];
@@ -99,5 +99,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	dest[i + j] = '\0';
+	free(s1);
 	return (dest);
 }
