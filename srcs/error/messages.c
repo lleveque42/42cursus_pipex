@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:10:40 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/28 18:30:14 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/31 13:47:02 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,24 @@ int	cmd_not_found(char *cmd)
 	return (1);
 }
 
+int	no_file(char *file)
+{
+	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	return (1);
+}
+
 int	cant_init_data(void)
 {
 	ft_putstr_fd("pipex: ", 2);
-	ft_putstr_fd(": can't init data\n", 2);
+	ft_putstr_fd("can't init data\n", 2);
+	return (1);
+}
+
+int	cant_find_path(void)
+{
+	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd("can't find path\n", 2);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:56:56 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/28 18:05:51 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/31 14:58:09 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ int	main(int ac, char **av, char **envp)
 
 	if (envp[0] == NULL)
 		return (0);
-	if (ac != 5 || check_args(av))
+	if (ac != 5)
 		return (wrong_input());
-	check_access(&data, av[1], av[4]);
+	if (check_args(av))
+		return (1);
+	check_access(&data, av[1], av[4], envp);
 	if (init_data(&data, av[2], av[3]))
 		return (ft_free(&data));
-	get_data(envp, &data);
+	if (get_data(envp, &data))
+		return (ft_free(&data));
 	if (parse_cmd(&data) || pipex(&data, envp))
 		return (ft_close_free(&data));
 	close(data.fd_in);

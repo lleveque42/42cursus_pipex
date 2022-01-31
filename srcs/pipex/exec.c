@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:17:07 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/28 18:21:29 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/31 14:31:50 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	child_two(t_data *data, char **envp)
 	if (dup2(data->pipe_fd[0], STDIN_FILENO) == -1)
 		return (1);
 	execve(data->path_cmd2, data->cmd2, envp);
-	perror(data->path_cmd2);
+	cmd_not_found(data->cmd2[0]);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(data->pipe_fd[0]);
@@ -37,7 +37,7 @@ int	child_one(t_data *data, char **envp)
 	if (dup2(data->pipe_fd[1], STDOUT_FILENO) == -1)
 		return (1);
 	execve(data->path_cmd1, data->cmd1, envp);
-	perror(data->path_cmd1);
+	cmd_not_found(data->cmd1[0]);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(data->pipe_fd[1]);

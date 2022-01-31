@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:57:25 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/28 17:41:39 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/31 13:47:31 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int		no_env(void);
 int		wrong_input(void);
 int		cmd_not_found(char *cmd);
 int		cant_init_data(void);
+int		cant_find_path(void);
+int		no_file(char *file);
 int		check_args(char **av);
-int		check_access(t_data *data, char *infile, char *outfile);
+int		check_access(t_data *data, char *infile, char *outfile, char **envp);
 int		parse_cmd(t_data *data);
 int		init_data(t_data *data, char *cmd1, char *cmd2);
 int		get_data(char **envp, t_data *path);

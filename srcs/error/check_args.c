@@ -6,14 +6,17 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:32:57 by lleveque          #+#    #+#             */
-/*   Updated: 2022/01/28 18:30:24 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:20:07 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
 
-int	check_access(t_data *data, char *infile, char *outfile)
+int	check_access(t_data *data, char *infile, char *outfile, char **envp)
 {
+	int	i;
+
+	i = 0;
 	data->fd_in = open(infile, O_RDONLY);
 	if (data->fd_in <= 0)
 	{
@@ -29,7 +32,13 @@ int	check_access(t_data *data, char *infile, char *outfile)
 		perror(outfile);
 		exit(2);
 	}
-	return (0);
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i++], "PATH=", 5))
+			return (0);
+	}
+	cant_find_path();
+	exit(2);
 }
 
 int	check_args(char **av)
@@ -45,8 +54,12 @@ int	check_args(char **av)
 		j = 0;
 		while (av[i][j] && av[i][j] == ' ')
 			j++;
-		if (!av[i][j])
-			return (1);
+		if (!av[i][j] && (i == 1))
+			return (no_file(av[i]));
+		else if (!av[i][j] && (i == 2 || i == 3))
+			return (cmd_not_found(av[i]));
+		else if (!av[i][j] && (i == 4))
+			return (wrong_input());
 		i++;
 	}
 	return (0);
